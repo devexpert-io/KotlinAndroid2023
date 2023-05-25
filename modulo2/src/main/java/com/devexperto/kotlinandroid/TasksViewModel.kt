@@ -2,11 +2,12 @@ package com.devexperto.kotlinandroid
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 
-class TasksViewModel : ViewModel() {
+class TasksViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
 
-    private val _items = MutableLiveData(emptyList<Task>())
+    private val _items = MutableLiveData(savedStateHandle.get<List<Task>>("tasks") ?: emptyList())
     val items: LiveData<List<Task>> get() = _items
 
     fun onTaskAdd(task: String) {
@@ -17,6 +18,7 @@ class TasksViewModel : ViewModel() {
                 completed = false
             )
             _items.value = tasks + newTask
+            savedStateHandle["tasks"] = _items.value
         }
     }
 
@@ -27,7 +29,7 @@ class TasksViewModel : ViewModel() {
             newItems[taskIndex] = task
             newItems.sortBy { it.completed }
             _items.value = newItems
+            savedStateHandle["tasks"] = _items.value
         }
-
     }
 }
