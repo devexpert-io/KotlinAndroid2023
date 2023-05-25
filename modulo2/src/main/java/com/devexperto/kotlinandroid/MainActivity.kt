@@ -1,41 +1,26 @@
 package com.devexperto.kotlinandroid
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.devexperto.kotlinandroid.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var taskAdapter: TaskAdapter
-    private val items = mutableListOf<Task>()
+
+    private val viewModel: TasksViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        taskAdapter = TaskAdapter(::updateTask)
+        taskAdapter = TaskAdapter(viewModel::onTaskCheck)
 
         binding.tasksList.adapter = taskAdapter
+        binding.addTask.setOnClickListener { viewModel.onTaskAdd(binding.taskInput.text.toString()) }
 
-        binding.addTask.setOnClickListener {
-
-            val task = Task(
-                id = items.size + 1,
-                title = binding.taskInput.text.toString(),
-                completed = false
-            )
-
-            items.add(task)
-
-            taskAdapter.submitList(items.toList())
-        }
-    }
-
-    private fun updateTask(task: Task) {
-        val taskIndex = items.indexOfFirst { it.id == task.id }
-        items[taskIndex] = task
-        items.sortBy { it.completed }
-        taskAdapter.submitList(items.toList())
+        viewModel.items.observe(this, taskAdapter::submitList)
     }
 }
