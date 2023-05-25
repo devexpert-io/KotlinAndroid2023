@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "KotlinAndroid2023"
-include ':app'
+include ':modulo2'
 include ':modulo1'
