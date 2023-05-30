@@ -5,7 +5,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.createSavedStateHandle
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
+import kotlinx.coroutines.launch
 
 class TasksViewModel(
     private val taskRepository: TaskRepository,
@@ -23,7 +25,9 @@ class TasksViewModel(
                 completed = false
             )
             _items.value = tasks + newTask
-            taskRepository.addTask(newTask) // Guardar la nueva tarea en el repositorio
+            viewModelScope.launch {
+                taskRepository.addTask(newTask)
+            }
         }
     }
 
@@ -34,7 +38,9 @@ class TasksViewModel(
             newItems[taskIndex] = task
             newItems.sortBy { it.completed }
             _items.value = newItems
-            taskRepository.updateTask(task) // Actualizar el estado de la tarea en el repositorio
+            viewModelScope.launch {
+                taskRepository.updateTask(task)
+            }
         }
     }
 }
