@@ -3,6 +3,9 @@ package com.devexperto.kotlinandroid
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.createSavedStateHandle
+import androidx.lifecycle.viewmodel.CreationExtras
 
 class TasksViewModel(
     private val taskRepository: TaskRepository,
@@ -33,5 +36,14 @@ class TasksViewModel(
             _items.value = newItems
             taskRepository.updateTask(task) // Actualizar el estado de la tarea en el repositorio
         }
+    }
+}
+
+@Suppress("UNCHECKED_CAST")
+class TasksViewModelFactory(
+    private val taskRepository: TaskRepository
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
+        return TasksViewModel(taskRepository, extras.createSavedStateHandle()) as T
     }
 }

@@ -3,14 +3,13 @@ package com.devexperto.kotlinandroid
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.SavedStateHandle
 import com.devexperto.kotlinandroid.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var taskAdapter: TaskAdapter
 
-    private val viewModel: TasksViewModel by viewModels()
+    private val viewModel: TasksViewModel by viewModels { TasksViewModelFactory(TaskRepository()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
