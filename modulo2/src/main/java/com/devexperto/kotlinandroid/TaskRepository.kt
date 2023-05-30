@@ -1,5 +1,8 @@
 package com.devexperto.kotlinandroid
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+
 class TaskRepository {
     private val tasks: MutableList<Task> = mutableListOf()
 
@@ -7,14 +10,18 @@ class TaskRepository {
         return tasks.toList()
     }
 
-    fun addTask(task: Task) {
-        tasks.add(task)
+    suspend fun addTask(task: Task) {
+        withContext(Dispatchers.IO){
+            tasks.add(task)
+        }
     }
 
-    fun updateTask(task: Task) {
-        val index = tasks.indexOfFirst { it.id == task.id }
-        if (index != -1) {
-            tasks[index] = task
+    suspend fun updateTask(task: Task) {
+        withContext(Dispatchers.IO) {
+            val index = tasks.indexOfFirst { it.id == task.id }
+            if (index != -1) {
+                tasks[index] = task
+            }
         }
     }
 }
