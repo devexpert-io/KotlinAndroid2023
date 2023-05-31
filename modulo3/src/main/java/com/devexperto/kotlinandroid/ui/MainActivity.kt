@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.devexperto.kotlinandroid.App
 import com.devexperto.kotlinandroid.data.RoomTaskLocalDataSource
 import com.devexperto.kotlinandroid.data.TaskRepository
+import com.devexperto.kotlinandroid.domain.AddTaskUseCase
+import com.devexperto.kotlinandroid.domain.GetTasksUseCase
+import com.devexperto.kotlinandroid.domain.UpdateTaskUseCase
 import com.devexperto.modulo3.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -13,10 +16,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var taskAdapter: TaskAdapter
 
     private val viewModel: TasksViewModel by viewModels {
+        val taskRepository = TaskRepository(
+            RoomTaskLocalDataSource((application as App).db.taskDao())
+        )
         TasksViewModelFactory(
-            TaskRepository(
-                RoomTaskLocalDataSource((application as App).db.taskDao())
-            )
+            GetTasksUseCase(taskRepository),
+            AddTaskUseCase(taskRepository),
+            UpdateTaskUseCase(taskRepository)
         )
     }
 
