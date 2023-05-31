@@ -21,29 +21,16 @@ class TasksViewModel(private val taskRepository: TaskRepository) : ViewModel() {
     }
 
     fun onTaskAdd(task: String) {
-        _items.value?.let { tasks ->
-            val newTask = Task(
-                id = tasks.size + 1,
-                title = task,
-                completed = false
-            )
-            _items.value = tasks + newTask
-            viewModelScope.launch {
-                taskRepository.addTask(newTask)
-            }
+        viewModelScope.launch {
+            taskRepository.addTask(Task(0, task, false))
+            _items.value = taskRepository.getTasks()
         }
     }
 
     fun onTaskCheck(task: Task) {
-        _items.value?.let { tasks ->
-            val taskIndex = tasks.indexOfFirst { it.id == task.id }
-            val newItems = tasks.toMutableList()
-            newItems[taskIndex] = task
-            newItems.sortBy { it.completed }
-            _items.value = newItems
-            viewModelScope.launch {
-                taskRepository.updateTask(task)
-            }
+        viewModelScope.launch {
+            taskRepository.updateTask(task)
+            _items.value = taskRepository.getTasks()
         }
     }
 }
