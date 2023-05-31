@@ -2,7 +2,7 @@ package com.devexperto.kotlinandroid
 
 import android.app.Application
 import androidx.room.Room
-import com.devexperto.kotlinandroid.data.TaskDatabase
+import com.devexperto.kotlinandroid.framework.TaskDatabase
 
 class App : Application() {
 

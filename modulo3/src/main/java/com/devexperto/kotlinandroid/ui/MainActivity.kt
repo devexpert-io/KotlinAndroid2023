@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.devexperto.kotlinandroid.App
-import com.devexperto.kotlinandroid.data.RoomTaskLocalDataSource
+import com.devexperto.kotlinandroid.framework.RoomTaskLocalDataSource
 import com.devexperto.kotlinandroid.data.TaskRepository
 import com.devexperto.kotlinandroid.domain.AddTaskUseCase
 import com.devexperto.kotlinandroid.domain.GetTasksUseCase
