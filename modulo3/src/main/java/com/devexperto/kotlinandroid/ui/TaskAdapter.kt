@@ -1,10 +1,11 @@
-package com.devexperto.kotlinandroid
+package com.devexperto.kotlinandroid.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.devexperto.kotlinandroid.data.Task
 import com.devexperto.modulo3.databinding.ItemTodoBinding
 
 class TaskAdapter(private val onTaskCheck: (Task) -> Unit) :

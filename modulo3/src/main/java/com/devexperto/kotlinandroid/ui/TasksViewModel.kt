@@ -1,21 +1,24 @@
-package com.devexperto.kotlinandroid
+package com.devexperto.kotlinandroid.ui
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
+import com.devexperto.kotlinandroid.data.Task
+import com.devexperto.kotlinandroid.data.TaskRepository
 import kotlinx.coroutines.launch
 
-class TasksViewModel(
-    private val taskRepository: TaskRepository,
-    savedStateHandle: SavedStateHandle
-) : ViewModel() {
+class TasksViewModel(private val taskRepository: TaskRepository) : ViewModel() {
 
-    private val _items = savedStateHandle.getLiveData("items", emptyList<Task>())
+    private val _items = MutableLiveData(emptyList<Task>())
     val items: LiveData<List<Task>> get() = _items
+
+    init {
+        viewModelScope.launch {
+            _items.value = taskRepository.getTasks()
+        }
+    }
 
     fun onTaskAdd(task: String) {
         _items.value?.let { tasks ->
@@ -49,7 +52,7 @@ class TasksViewModel(
 class TasksViewModelFactory(
     private val taskRepository: TaskRepository
 ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
-        return TasksViewModel(taskRepository, extras.createSavedStateHandle()) as T
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return TasksViewModel(taskRepository) as T
     }
 }
