@@ -68,6 +68,12 @@
             android:enabled="true"
             android:exported="false" />
 
+        <!-- Ejemplo 3 - Services -->
+        <service
+            android:name=".services.ejemplo3.MyService"
+            android:enabled="true"
+            android:exported="false" />
+
     </application>
 
 </manifest>
