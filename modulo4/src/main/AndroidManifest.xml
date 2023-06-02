@@ -55,6 +55,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Ejemplo 1 - Services -->
+        <service
+            android:name=".services.ejemplo1.BackgroundService"
+            android:enabled="true"
+            android:exported="false" />
+
     </application>
 
 </manifest>

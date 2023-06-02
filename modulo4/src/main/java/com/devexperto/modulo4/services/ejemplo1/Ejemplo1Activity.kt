@@ -1,5 +1,6 @@
 package com.devexperto.modulo4.services.ejemplo1
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.devexperto.modulo4.databinding.ActivityServicesEjemplo1Binding
@@ -21,6 +22,7 @@ class Ejemplo1Activity : AppCompatActivity() {
     }
 
     private fun backgroundProcessing() {
-        TODO()
+        val serviceIntent = Intent(this, BackgroundService::class.java)
+        startService(serviceIntent)
     }
 }
