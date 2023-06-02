@@ -1,10 +1,10 @@
 package com.devexperto.modulo4.services.ejemplo2
 
-import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.devexperto.modulo4.databinding.ActivityServicesEjemplo2Binding
 
 class Ejemplo2Activity : AppCompatActivity() {
@@ -19,6 +19,7 @@ class Ejemplo2Activity : AppCompatActivity() {
     }
 
     private fun startDownloadService(context: Context) {
-        TODO()
+        val intent = Intent(context, DownloadService::class.java)
+        ContextCompat.startForegroundService(context, intent)
     }
 }

@@ -62,6 +62,12 @@
             android:enabled="true"
             android:exported="false" />
 
+        <!-- Ejemplo 2 - Services -->
+        <service
+            android:name=".services.ejemplo2.DownloadService"
+            android:enabled="true"
+            android:exported="false" />
+
     </application>
 
 </manifest>

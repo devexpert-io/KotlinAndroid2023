@@ -14,18 +14,28 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.devexperto.modulo4.R
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DownloadService : Service() {
     private val channelId = "download_channel"
     private val notificationId = 1
+    private lateinit var serviceScope: CoroutineScope
 
     override fun onCreate() {
         super.onCreate()
+        serviceScope = CoroutineScope(Dispatchers.Main)
         createNotificationChannel()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        TODO()
+        val contentText = "Descargando contenido"
+        startForeground(notificationId, createNotification(contentText))
+        startDownload()
+        return START_NOT_STICKY
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
@@ -59,6 +69,19 @@ class DownloadService : Service() {
             .setContentIntent(pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .build()
+    }
+
+    private fun startDownload() {
+        serviceScope.launch {
+            withContext(Dispatchers.IO) {
+                for (i in 0 until 30) {
+                    delay(300)
+                    val contentText = "Descargando archivo $i de 30"
+                    updateNotification(contentText)
+                }
+            }
+            stopSelf()
+        }
     }
 
     private fun updateNotification(contentText: String) {
