@@ -16,3 +16,4 @@ rootProject.name = "KotlinAndroid2023"
 include ':modulo2'
 include ':modulo1'
 include ':modulo3'
+include ':modulo4'

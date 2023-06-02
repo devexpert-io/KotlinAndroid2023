@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        android:text="Services"
+        android:textColor="@android:color/holo_blue_dark"
+        android:layout_marginBottom="50dp"/>
+
+    <Button
+        android:id="@+id/btnServicioEjemplo1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ejemplo 1"
+        android:layout_marginBottom="18dp"/>
+
+    <Button
+        android:id="@+id/btnServicioEjemplo2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ejemplo 2"
+        android:layout_marginBottom="18dp"/>
+
+    <Button
+        android:id="@+id/btnServicioEjemplo3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ejemplo 3"
+        android:layout_marginBottom="58dp"/>
+
+    <Button
+        android:id="@+id/btnServicioEjercicio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ejercicio"
+        android:layout_marginBottom="18dp"/>
+</LinearLayout>

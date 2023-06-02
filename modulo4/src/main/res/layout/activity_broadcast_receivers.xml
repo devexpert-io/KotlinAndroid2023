@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        android:text="Broadcast Receivers"
+        android:layout_marginBottom="50dp"/>
+
+    <Button
+        android:id="@+id/btnReceiversEjemplo1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ejemplo 1"
+        android:layout_marginBottom="18dp"/>
+
+    <Button
+        android:id="@+id/btnReceiversEjemplo2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ejemplo 2"
+        android:layout_marginBottom="18dp"/>
+
+    <Button
+        android:id="@+id/btnReceiversEjemplo3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ejemplo 3"
+        android:layout_marginBottom="58dp"/>
+
+    <Button
+        android:id="@+id/btnReceiversEjercicio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ejercicio"
+        android:layout_marginBottom="18dp"/>
+</LinearLayout>
