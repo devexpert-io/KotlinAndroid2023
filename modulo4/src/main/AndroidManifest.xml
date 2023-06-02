@@ -74,6 +74,12 @@
             android:enabled="true"
             android:exported="false" />
 
+        <!-- Ejercicio - Services -->
+        <service
+            android:name=".services.ejercicio.PlayerService"
+            android:enabled="true"
+            android:exported="false" />
+
     </application>
 
 </manifest>
