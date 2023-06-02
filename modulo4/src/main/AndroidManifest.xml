@@ -80,6 +80,16 @@
             android:enabled="true"
             android:exported="false" />
 
+        <!-- Ejemplo 2 - BroadcastReceivers | Con Broadcast Receiver, pero ya no disponible para Android 7 (N) o superiores -->
+        <!--<receiver
+            android:name=".NetworkReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>-->
+
     </application>
 
 </manifest>
