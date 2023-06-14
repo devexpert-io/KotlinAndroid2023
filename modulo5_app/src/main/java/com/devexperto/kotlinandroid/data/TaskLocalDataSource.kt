@@ -1,7 +1,9 @@
 package com.devexperto.kotlinandroid.data
 
+import kotlinx.coroutines.flow.Flow
+
 interface TaskLocalDataSource {
-    suspend fun getTasks(): List<Task>
+    fun getTasks(): Flow<List<Task>>
 
     suspend fun addTask(task: Task)
 

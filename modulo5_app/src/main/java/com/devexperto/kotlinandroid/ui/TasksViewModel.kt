@@ -7,37 +7,26 @@ import com.devexperto.kotlinandroid.data.Task
 import com.devexperto.kotlinandroid.domain.AddTaskUseCase
 import com.devexperto.kotlinandroid.domain.GetTasksUseCase
 import com.devexperto.kotlinandroid.domain.UpdateTaskUseCase
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class TasksViewModel(
-    private val getTasksUseCase: GetTasksUseCase,
+    getTasksUseCase: GetTasksUseCase,
     private val addTaskUseCase: AddTaskUseCase,
     private val updateTaskUseCase: UpdateTaskUseCase,
 ) : ViewModel() {
 
-    private val _items = MutableStateFlow<List<Task>>(emptyList())
-    val items: StateFlow<List<Task>> = _items.asStateFlow()
-
-    init {
-        viewModelScope.launch {
-            _items.value = getTasksUseCase()
-        }
-    }
+    val items: Flow<List<Task>> = getTasksUseCase()
 
     fun onTaskAdd(task: String) {
         viewModelScope.launch {
             addTaskUseCase(Task(0, task, false))
-            _items.value = getTasksUseCase()
         }
     }
 
     fun onTaskCheck(task: Task) {
         viewModelScope.launch {
             updateTaskUseCase(task)
-            _items.value = getTasksUseCase()
         }
     }
 }

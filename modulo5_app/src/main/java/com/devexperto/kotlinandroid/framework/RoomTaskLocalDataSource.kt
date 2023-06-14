@@ -8,9 +8,12 @@ import androidx.room.RoomDatabase
 import androidx.room.Update
 import com.devexperto.kotlinandroid.data.Task
 import com.devexperto.kotlinandroid.data.TaskLocalDataSource
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class RoomTaskLocalDataSource(private val taskDao: TaskDao) : TaskLocalDataSource {
-    override suspend fun getTasks(): List<Task> = taskDao.getTasks().map { it.toTask() }
+    override fun getTasks(): Flow<List<Task>> =
+        taskDao.getTasks().map { tasks -> tasks.map { it.toTask() } }
 
     override suspend fun addTask(task: Task) = taskDao.addTask(task.toDbTask())
 
@@ -29,7 +32,7 @@ abstract class TaskDatabase : RoomDatabase() {
 interface TaskDao {
 
     @Query("SELECT * FROM DbTask ORDER BY completed ASC")
-    suspend fun getTasks(): List<DbTask>
+    fun getTasks(): Flow<List<DbTask>>
 
     @Insert
     suspend fun addTask(task: DbTask)
