@@ -3,13 +3,17 @@ package com.devexperto.kotlinandroid.ui
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.devexperto.kotlinandroid.App
-import com.devexperto.kotlinandroid.framework.RoomTaskLocalDataSource
 import com.devexperto.kotlinandroid.data.TaskRepository
 import com.devexperto.kotlinandroid.domain.AddTaskUseCase
 import com.devexperto.kotlinandroid.domain.GetTasksUseCase
 import com.devexperto.kotlinandroid.domain.UpdateTaskUseCase
+import com.devexperto.kotlinandroid.framework.RoomTaskLocalDataSource
 import com.devexperto.modulo5.databinding.ActivityMainBinding
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,6 +42,10 @@ class MainActivity : AppCompatActivity() {
             viewModel.onTaskAdd(binding.taskInput.text.toString())
         }
 
-        viewModel.items.observe(this, taskAdapter::submitList)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.items.collect(taskAdapter::submitList)
+            }
+        }
     }
 }
