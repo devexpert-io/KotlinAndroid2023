@@ -2,11 +2,18 @@ package com.devexperto.kotlinandroid.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.CheckBox
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.devexperto.kotlinandroid.data.Task
 import com.devexperto.modulo5.databinding.ItemTodoBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.launch
 
 class TaskAdapter(private val onTaskCheck: (Task) -> Unit) :
     ListAdapter<Task, TaskAdapter.TaskViewHolder>(TaskDiffCallback()) {
@@ -25,9 +32,11 @@ class TaskAdapter(private val onTaskCheck: (Task) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.checkBoxCompleted.setOnCheckedChangeListener { _, isChecked ->
-                val task = getItem(adapterPosition)
-                onTaskCheck(task.copy(completed = isChecked))
+            CoroutineScope(Dispatchers.Main).launch {
+                binding.checkBoxCompleted.onCheckedEvents.collect { isChecked ->
+                    val task = getItem(adapterPosition)
+                    onTaskCheck(task.copy(completed = isChecked))
+                }
             }
         }
 
@@ -47,3 +56,11 @@ class TaskAdapter(private val onTaskCheck: (Task) -> Unit) :
         }
     }
 }
+
+val CheckBox.onCheckedEvents: Flow<Boolean>
+    get() = callbackFlow {
+        setOnCheckedChangeListener { _, isChecked ->
+            trySend(isChecked)
+        }
+        awaitClose { setOnCheckedChangeListener(null) }
+    }
