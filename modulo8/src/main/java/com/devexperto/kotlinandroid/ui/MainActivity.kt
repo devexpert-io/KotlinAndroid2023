@@ -6,22 +6,28 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.devexperto.kotlinandroid.App
 import com.devexperto.kotlinandroid.data.TaskRepository
 import com.devexperto.kotlinandroid.domain.AddTaskUseCase
 import com.devexperto.kotlinandroid.domain.GetTasksUseCase
 import com.devexperto.kotlinandroid.domain.UpdateTaskUseCase
 import com.devexperto.kotlinandroid.framework.RoomTaskLocalDataSource
+import com.devexperto.kotlinandroid.framework.TaskDatabase
 import com.devexperto.modulo8.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var taskAdapter: TaskAdapter
 
+    @Inject
+    lateinit var db: TaskDatabase
+
     private val viewModel: TasksViewModel by viewModels {
         val taskRepository = TaskRepository(
-            RoomTaskLocalDataSource((application as App).db.taskDao())
+            RoomTaskLocalDataSource(db.taskDao())
         )
         TasksViewModelFactory(
             GetTasksUseCase(taskRepository),
