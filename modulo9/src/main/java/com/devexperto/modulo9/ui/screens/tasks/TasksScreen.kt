@@ -1,5 +1,6 @@
 package com.devexperto.modulo9.ui.screens.tasks
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,6 +29,7 @@ import com.devexperto.modulo9.domain.GetTasksUseCase
 import com.devexperto.modulo9.domain.UpdateTaskUseCase
 import com.devexperto.modulo9.framework.RoomTaskLocalDataSource
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TasksScreen(viewModel: TasksViewModel = buildTasksViewModel()) {
     val tasks by viewModel.items.collectAsState(emptyList())
@@ -52,9 +54,10 @@ fun TasksScreen(viewModel: TasksViewModel = buildTasksViewModel()) {
         }
 
         LazyColumn {
-            items(tasks) { task ->
+            items(tasks, key = { it.id }) { task ->
                 Row(
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.animateItemPlacement()
                 ) {
                     Text(
                         text = task.title,
