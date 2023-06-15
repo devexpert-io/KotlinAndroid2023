@@ -2,11 +2,13 @@ package com.devexperto.modulo9.ui.screens.tasks
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -51,10 +53,19 @@ fun TasksScreen(viewModel: TasksViewModel = buildTasksViewModel()) {
 
         LazyColumn {
             items(tasks) { task ->
-                Text(
-                    text = task.title,
-                    modifier = Modifier.padding(vertical = 8.dp)
-                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = task.title,
+                        modifier = Modifier
+                            .padding(vertical = 8.dp)
+                            .weight(1f)
+                    )
+                    Checkbox(
+                        checked = task.completed,
+                        onCheckedChange = { viewModel.onTaskCheck(task.copy(completed = !task.completed)) })
+                }
             }
         }
     }
