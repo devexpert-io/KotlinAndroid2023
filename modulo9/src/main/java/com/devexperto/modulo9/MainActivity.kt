@@ -15,6 +15,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -48,20 +52,26 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun LoginForm(modifier: Modifier = Modifier) {
+    var user by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    val enabled = user.isNotEmpty() && password.isNotEmpty()
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically),
         modifier = modifier
     ) {
         TextField(
-            value = "user",
-            onValueChange = {}
+            value = user,
+            onValueChange = { user = it }
         )
         TextField(
-            value = "password",
-            onValueChange = {}
+            value = password,
+            onValueChange = { password = it }
         )
-        Button(onClick = {}) {
+        Button(
+            onClick = { user = ""; password = "" },
+            enabled = enabled
+        ) {
             Text(text = "Login")
         }
     }
