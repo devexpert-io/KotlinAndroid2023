@@ -9,7 +9,6 @@ import com.devexperto.kotlinandroid.domain.GetTasksUseCase
 import com.devexperto.kotlinandroid.domain.UpdateTaskUseCase
 import com.devexperto.kotlinandroid.framework.RoomTaskLocalDataSource
 import com.devexperto.kotlinandroid.framework.TaskDatabase
-import com.devexperto.kotlinandroid.ui.TasksViewModelFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,13 +25,6 @@ object AppModule {
         .databaseBuilder(app, TaskDatabase::class.java, "task-db")
         .build()
 
-    @Provides
-    fun provideTasksViewModelFactory(
-        getTasksUseCase: GetTasksUseCase,
-        addTaskUseCase: AddTaskUseCase,
-        updateTaskUseCase: UpdateTaskUseCase
-    ) = TasksViewModelFactory(getTasksUseCase, addTaskUseCase, updateTaskUseCase)
-
 }
 
 @InstallIn(SingletonComponent::class)
@@ -40,7 +32,8 @@ object AppModule {
 object DataModule {
 
     @Provides
-    fun provideTaskLocalDataSource(db: TaskDatabase): TaskLocalDataSource = RoomTaskLocalDataSource(db.taskDao())
+    fun provideTaskLocalDataSource(db: TaskDatabase): TaskLocalDataSource =
+        RoomTaskLocalDataSource(db.taskDao())
 
     @Provides
     fun provideTaskRepository(taskLocalDataSource: TaskLocalDataSource) =

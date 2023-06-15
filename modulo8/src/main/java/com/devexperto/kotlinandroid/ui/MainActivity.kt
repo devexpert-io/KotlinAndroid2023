@@ -9,17 +9,13 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.devexperto.modulo8.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var taskAdapter: TaskAdapter
 
-    @Inject
-    lateinit var tasksViewModelFactory: TasksViewModelFactory
-
-    private val viewModel: TasksViewModel by viewModels { tasksViewModelFactory }
+    private val viewModel: TasksViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,16 +1,18 @@
 package com.devexperto.kotlinandroid.ui
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.devexperto.kotlinandroid.data.Task
 import com.devexperto.kotlinandroid.domain.AddTaskUseCase
 import com.devexperto.kotlinandroid.domain.GetTasksUseCase
 import com.devexperto.kotlinandroid.domain.UpdateTaskUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TasksViewModel(
+@HiltViewModel
+class TasksViewModel @Inject constructor(
     getTasksUseCase: GetTasksUseCase,
     private val addTaskUseCase: AddTaskUseCase,
     private val updateTaskUseCase: UpdateTaskUseCase,
@@ -28,16 +30,5 @@ class TasksViewModel(
         viewModelScope.launch {
             updateTaskUseCase(task)
         }
-    }
-}
-
-@Suppress("UNCHECKED_CAST")
-class TasksViewModelFactory(
-    private val getTasksUseCase: GetTasksUseCase,
-    private val addTaskUseCase: AddTaskUseCase,
-    private val updateTaskUseCase: UpdateTaskUseCase,
-) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return TasksViewModel(getTasksUseCase, addTaskUseCase, updateTaskUseCase) as T
     }
 }
