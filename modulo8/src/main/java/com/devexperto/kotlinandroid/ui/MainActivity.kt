@@ -6,12 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.devexperto.kotlinandroid.data.TaskRepository
-import com.devexperto.kotlinandroid.domain.AddTaskUseCase
-import com.devexperto.kotlinandroid.domain.GetTasksUseCase
-import com.devexperto.kotlinandroid.domain.UpdateTaskUseCase
-import com.devexperto.kotlinandroid.framework.RoomTaskLocalDataSource
-import com.devexperto.kotlinandroid.framework.TaskDatabase
 import com.devexperto.modulo8.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -23,18 +17,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var taskAdapter: TaskAdapter
 
     @Inject
-    lateinit var db: TaskDatabase
+    lateinit var tasksViewModelFactory: TasksViewModelFactory
 
-    private val viewModel: TasksViewModel by viewModels {
-        val taskRepository = TaskRepository(
-            RoomTaskLocalDataSource(db.taskDao())
-        )
-        TasksViewModelFactory(
-            GetTasksUseCase(taskRepository),
-            AddTaskUseCase(taskRepository),
-            UpdateTaskUseCase(taskRepository)
-        )
-    }
+    private val viewModel: TasksViewModel by viewModels { tasksViewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

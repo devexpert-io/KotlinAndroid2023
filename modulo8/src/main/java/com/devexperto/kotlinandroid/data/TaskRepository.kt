@@ -1,9 +1,8 @@
 package com.devexperto.kotlinandroid.data
 
-import com.devexperto.kotlinandroid.framework.RoomTaskLocalDataSource
 import kotlinx.coroutines.flow.Flow
 
-class TaskRepository(private val taskLocalDataSource: RoomTaskLocalDataSource) {
+class TaskRepository(private val taskLocalDataSource: TaskLocalDataSource) {
 
     fun getTasks(): Flow<List<Task>> = taskLocalDataSource.getTasks()
 
