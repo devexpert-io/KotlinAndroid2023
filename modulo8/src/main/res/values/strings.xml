@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">KotlinAndroid2023</string>
+    <string name="new_task">Add a new task</string>
+    <string name="add_task">Add Task</string>
+</resources>

@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace 'com.devexperto.modulo5'
+    namespace 'com.devexperto.modulo8'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.devexperto.modulo5"
+        applicationId "com.devexperto.modulo8"
         minSdk 24
         targetSdk 33
         versionCode 1
@@ -49,8 +49,4 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-}
-
-kapt {
-    correctErrorTypes true
 }
