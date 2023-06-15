@@ -10,8 +10,10 @@ import com.devexperto.kotlinandroid.data.Task
 import com.devexperto.kotlinandroid.data.TaskLocalDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class RoomTaskLocalDataSource(private val taskDao: TaskDao) : TaskLocalDataSource {
+class RoomTaskLocalDataSource @Inject constructor(private val taskDao: TaskDao) :
+    TaskLocalDataSource {
     override fun getTasks(): Flow<List<Task>> =
         taskDao.getTasks().map { tasks -> tasks.map { it.toTask() } }
 

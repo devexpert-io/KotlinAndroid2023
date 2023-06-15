@@ -3,12 +3,10 @@ package com.devexperto.kotlinandroid.di
 import android.app.Application
 import androidx.room.Room
 import com.devexperto.kotlinandroid.data.TaskLocalDataSource
-import com.devexperto.kotlinandroid.data.TaskRepository
-import com.devexperto.kotlinandroid.domain.AddTaskUseCase
-import com.devexperto.kotlinandroid.domain.GetTasksUseCase
-import com.devexperto.kotlinandroid.domain.UpdateTaskUseCase
 import com.devexperto.kotlinandroid.framework.RoomTaskLocalDataSource
+import com.devexperto.kotlinandroid.framework.TaskDao
 import com.devexperto.kotlinandroid.framework.TaskDatabase
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,32 +23,18 @@ object AppModule {
         .databaseBuilder(app, TaskDatabase::class.java, "task-db")
         .build()
 
+    @Provides
+    @Singleton
+    fun provideTaskDao(db: TaskDatabase): TaskDao = db.taskDao()
+
 }
 
 @InstallIn(SingletonComponent::class)
 @Module
-object DataModule {
+abstract class DataModule {
 
-    @Provides
-    fun provideTaskLocalDataSource(db: TaskDatabase): TaskLocalDataSource =
-        RoomTaskLocalDataSource(db.taskDao())
+    @Binds
+    abstract fun provideTaskLocalDataSource(ds: RoomTaskLocalDataSource): TaskLocalDataSource
 
-    @Provides
-    fun provideTaskRepository(taskLocalDataSource: TaskLocalDataSource) =
-        TaskRepository(taskLocalDataSource)
-}
-
-@InstallIn(SingletonComponent::class)
-@Module
-object UseCaseModule {
-
-    @Provides
-    fun provideGetTasksUseCase(repository: TaskRepository) = GetTasksUseCase(repository)
-
-    @Provides
-    fun provideAddTaskUseCase(repository: TaskRepository) = AddTaskUseCase(repository)
-
-    @Provides
-    fun provideUpdateTaskUseCase(repository: TaskRepository) = UpdateTaskUseCase(repository)
 }
 

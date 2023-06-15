@@ -1,8 +1,9 @@
 package com.devexperto.kotlinandroid.data
 
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class TaskRepository(private val taskLocalDataSource: TaskLocalDataSource) {
+class TaskRepository @Inject constructor(private val taskLocalDataSource: TaskLocalDataSource) {
 
     fun getTasks(): Flow<List<Task>> = taskLocalDataSource.getTasks()
 
