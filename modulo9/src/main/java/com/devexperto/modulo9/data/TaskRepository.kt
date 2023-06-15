@@ -10,4 +10,6 @@ class TaskRepository(private val taskLocalDataSource: RoomTaskLocalDataSource) {
     suspend fun addTask(task: Task) = taskLocalDataSource.addTask(task)
 
     suspend fun updateTask(task: Task) = taskLocalDataSource.updateTask(task)
+
+    suspend fun deleteAllTasks() = taskLocalDataSource.deleteAllTasks()
 }

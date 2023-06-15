@@ -18,6 +18,8 @@ class RoomTaskLocalDataSource(private val taskDao: TaskDao) : TaskLocalDataSourc
     override suspend fun addTask(task: Task) = taskDao.addTask(task.toDbTask())
 
     override suspend fun updateTask(task: Task) = taskDao.updateTask(task.toDbTask())
+
+    override suspend fun deleteAllTasks() = taskDao.deleteAllTasks()
 }
 
 fun Task.toDbTask() = DbTask(id, title, completed)
@@ -39,4 +41,7 @@ interface TaskDao {
 
     @Update
     suspend fun updateTask(task: DbTask)
+
+    @Query("DELETE FROM DbTask")
+    suspend fun deleteAllTasks()
 }

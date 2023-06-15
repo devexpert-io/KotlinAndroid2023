@@ -10,10 +10,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -28,26 +35,46 @@ import com.devexperto.modulo9.App
 import com.devexperto.modulo9.data.Task
 import com.devexperto.modulo9.data.TaskRepository
 import com.devexperto.modulo9.domain.AddTaskUseCase
+import com.devexperto.modulo9.domain.DeleteAllTasksUseCase
 import com.devexperto.modulo9.domain.GetTasksUseCase
 import com.devexperto.modulo9.domain.UpdateTaskUseCase
 import com.devexperto.modulo9.framework.RoomTaskLocalDataSource
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TasksScreen(viewModel: TasksViewModel = buildTasksViewModel()) {
     val tasks by viewModel.items.collectAsState(emptyList())
 
-    Column(
-        modifier = Modifier.padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        NewTaskForm(onNewTask = viewModel::onTaskAdd)
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(text = "Tasks") },
+                actions = {
+                    IconButton(onClick = { viewModel.onDeleteAllClick() }) {
+                        Icon(
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = "Delete all"
+                        )
+                    }
+                }
+            )
+        }
+    ) { padding ->
+        Column(
+            modifier = Modifier
+                .padding(16.dp)
+                .padding(padding),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            NewTaskForm(onNewTask = viewModel::onTaskAdd)
 
-        LazyColumn {
-            items(tasks, key = { it.id }) { task ->
-                TaskItem(
-                    task = task,
-                    onTaskCheck = { viewModel.onTaskCheck(task.copy(completed = it)) }
-                )
+            LazyColumn {
+                items(tasks, key = { it.id }) { task ->
+                    TaskItem(
+                        task = task,
+                        onTaskCheck = { viewModel.onTaskCheck(task.copy(completed = it)) }
+                    )
+                }
             }
         }
     }
@@ -100,6 +127,7 @@ fun buildTasksViewModel(): TasksViewModel {
     return TasksViewModel(
         GetTasksUseCase(taskRepository),
         AddTaskUseCase(taskRepository),
-        UpdateTaskUseCase(taskRepository)
+        UpdateTaskUseCase(taskRepository),
+        DeleteAllTasksUseCase(taskRepository)
     )
 }
