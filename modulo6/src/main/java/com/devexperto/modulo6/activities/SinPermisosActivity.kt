@@ -18,7 +18,7 @@ class SinPermisosActivity : AppCompatActivity() {
             abrirMarcadoTelefonico()
         }
         binding.btnCompartirTexto.setOnClickListener {
-
+            compartirTexto("Hola desde DevExperto")
         }
         binding.btnAbrirCamara.setOnClickListener {
 
@@ -29,5 +29,12 @@ class SinPermisosActivity : AppCompatActivity() {
         val intent = Intent(Intent.ACTION_DIAL)
         intent.data = Uri.parse("tel:77752810")
         startActivity(intent)
+    }
+
+    private fun compartirTexto(texto: String) {
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, texto)
+        startActivity(Intent.createChooser(intent, "Compartir"))
     }
 }
