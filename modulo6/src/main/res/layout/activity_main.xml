@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        android:text="@string/titulo"
+        android:textColor="@android:color/holo_blue_dark"
+        android:layout_marginBottom="50dp"
+        android:gravity="center_horizontal"/>
+
+    <Button
+        android:id="@+id/btnSinPermisos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/sin_permisos" />
+
+    <Button
+        android:id="@+id/btnTiempoDeInstalacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/tiempo_de_instalacion" />
+
+    <Button
+        android:id="@+id/btnTiempoDeEjecucion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/tiempo_de_ejecucion" />
+
+</LinearLayout>

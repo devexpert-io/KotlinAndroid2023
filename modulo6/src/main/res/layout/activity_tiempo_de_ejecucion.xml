@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        android:text="@string/tiempo_de_ejecucion"
+        android:textColor="@android:color/holo_blue_dark"
+        android:layout_marginBottom="50dp"
+        android:gravity="center_horizontal"/>
+
+    <Button
+        android:id="@+id/btnAccederContactos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/acceder_contactos" />
+
+    <Button
+        android:id="@+id/btnAccederUbicacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/acceder_ubicacion" />
+
+    <Button
+        android:id="@+id/btnAccederCamara"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/acceder_camara" />
+
+    <Button
+        android:id="@+id/btnAccederMultiplesPermisos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/acceder_multiples_permisos" />
+
+</LinearLayout>

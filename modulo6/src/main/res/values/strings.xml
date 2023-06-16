@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">modulo6</string>
+    <string name="tiempo_de_instalacion">Tiempo de instalación</string>
+    <string name="tiempo_de_ejecucion">Tiempo de ejecución</string>
+    <string name="sin_permisos">Sin permisos</string>
+    <string name="titulo">Módulo 6 | Permisos</string>
+
+    <string name="abrir_camara">Abrir cámara</string>
+    <string name="compartir_texto">Compartir texto</string>
+    <string name="abrir_marcado_telefonico">Abrir marcado telefónico</string>
+
+    <string name="acceder_a_internet">Acceder a Internet</string>
+    <string name="estado_de_red">Obtener estado de la red</string>
+    <string name="vibracion">Vibración</string>
+
+    <string name="acceder_camara">Acceder a cámara</string>
+    <string name="acceder_contactos">Acceder a contactos</string>
+    <string name="acceder_ubicacion">Acceder a ubicación</string>
+    <string name="acceder_multiples_permisos">Múltiples permisos</string>
+
+</resources>

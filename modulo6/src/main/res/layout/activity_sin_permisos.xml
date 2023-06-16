@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        android:text="@string/sin_permisos"
+        android:textColor="@android:color/holo_blue_dark"
+        android:layout_marginBottom="50dp"
+        android:gravity="center_horizontal"/>
+
+    <Button
+        android:id="@+id/btnMarcadoTelefonico"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/abrir_marcado_telefonico" />
+
+    <Button
+        android:id="@+id/btnCompartirTexto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/compartir_texto" />
+
+    <Button
+        android:id="@+id/btnAbrirCamara"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/abrir_camara" />
+
+    <ImageView
+        android:id="@+id/ivImagen"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
