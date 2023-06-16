@@ -4,6 +4,9 @@
     <!--Ejemplo: Tiempo de Instalación, Obtener estado de red -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <!--Ejemplo: Tiempo de Instalación, Vibración -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
