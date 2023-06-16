@@ -13,6 +13,10 @@
     <!--Ejemplo: Tiempo de ejecución, permiso para acceder a contactos-->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
+    <!--Ejemplo: Tiempo de ejecución, Acceder a ubicación-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
