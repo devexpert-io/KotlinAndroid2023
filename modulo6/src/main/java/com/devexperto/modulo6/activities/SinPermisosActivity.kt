@@ -1,5 +1,7 @@
 package com.devexperto.modulo6.activities
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.devexperto.modulo6.databinding.ActivitySinPermisosBinding
@@ -13,7 +15,7 @@ class SinPermisosActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnMarcadoTelefonico.setOnClickListener {
-
+            abrirMarcadoTelefonico()
         }
         binding.btnCompartirTexto.setOnClickListener {
 
@@ -21,5 +23,11 @@ class SinPermisosActivity : AppCompatActivity() {
         binding.btnAbrirCamara.setOnClickListener {
 
         }
+    }
+
+    private fun abrirMarcadoTelefonico() {
+        val intent = Intent(Intent.ACTION_DIAL)
+        intent.data = Uri.parse("tel:77752810")
+        startActivity(intent)
     }
 }
