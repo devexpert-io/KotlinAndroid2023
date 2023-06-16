@@ -15,6 +15,7 @@ class TiempoDeEjecucionActivity : AppCompatActivity() {
     companion object {
         private const val CONTACTS_PERMISSION_REQUEST_CODE = 1
         private const val LOCATION_PERMISSION_REQUEST_CODE = 2
+        private const val CAMERA_PERMISSION_REQUEST_CODE = 3
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +29,9 @@ class TiempoDeEjecucionActivity : AppCompatActivity() {
         binding.btnAccederUbicacion.setOnClickListener {
             requestPermission(Manifest.permission.ACCESS_FINE_LOCATION, LOCATION_PERMISSION_REQUEST_CODE)
         }
+        binding.btnAccederCamara.setOnClickListener {
+            requestPermission(Manifest.permission.CAMERA, CAMERA_PERMISSION_REQUEST_CODE)
+        }
     }
 
     private fun requestPermission(permission: String, requestCode: Int) {
@@ -36,12 +40,12 @@ class TiempoDeEjecucionActivity : AppCompatActivity() {
             when(requestCode) {
                 CONTACTS_PERMISSION_REQUEST_CODE -> { getContacts() }
                 LOCATION_PERMISSION_REQUEST_CODE -> { getLocalization() }
+                CAMERA_PERMISSION_REQUEST_CODE -> { openCamera() }
             }
         } else {
             ActivityCompat.requestPermissions(this, arrayOf(permission), requestCode)
         }
     }
-
 
     private fun isPermissionGranted(permission: String): Boolean {
         return ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
@@ -66,7 +70,19 @@ class TiempoDeEjecucionActivity : AppCompatActivity() {
                     showToast("Permiso de localización denegado")
                 }
             }
+            CAMERA_PERMISSION_REQUEST_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    showToast("Permiso de camara otorgado")
+                    openCamera()
+                } else {
+                    showToast("Permiso de camara denegado")
+                }
+            }
         }
+    }
+
+    private fun openCamera() {
+        showToast("Funcionalidad de cámara")
     }
 
     private fun getContacts() {
@@ -77,7 +93,9 @@ class TiempoDeEjecucionActivity : AppCompatActivity() {
         showToast("Funcionalidad de localización")
     }
 
+
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
+
 }
