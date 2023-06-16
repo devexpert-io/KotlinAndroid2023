@@ -26,6 +26,12 @@
     <!-- Ejemplo: Tiempo de ejecución, multiples permisos -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
+    <!-- Ejercicio -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
