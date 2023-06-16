@@ -1,6 +1,7 @@
 package com.devexperto.modulo6.activities
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -10,6 +11,11 @@ import android.os.Vibrator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.devexperto.modulo6.databinding.ActivityTiempoDeInstalacionBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.net.URL
 
 
 class TiempoDeInstalacionActivity : AppCompatActivity() {
@@ -27,7 +33,7 @@ class TiempoDeInstalacionActivity : AppCompatActivity() {
             vibrar()
         }
         binding.btnAccederAInternet.setOnClickListener {
-
+            descargarImagen()
         }
     }
 
@@ -58,6 +64,22 @@ class TiempoDeInstalacionActivity : AppCompatActivity() {
                 )
             } else {
                 vibrator.vibrate(1000)
+            }
+        }
+    }
+
+    private fun descargarImagen() {
+        val imageUrl = "https://definicion.de/wp-content/uploads/2015/10/android.png"
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val bitmap = withContext(Dispatchers.IO) {
+                    URL(imageUrl).openStream().use { stream ->
+                        BitmapFactory.decodeStream(stream)
+                    }
+                }
+                bitmap?.let { binding.ivImagen.setImageBitmap(it) }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }

@@ -7,6 +7,9 @@
     <!--Ejemplo: Tiempo de Instalación, Vibración -->
     <uses-permission android:name="android.permission.VIBRATE" />
 
+    <!--Ejemplo: Tiempo de Instalación, Internet descargar imagen -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
