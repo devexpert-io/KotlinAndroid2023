@@ -18,4 +18,6 @@
     <string name="acceder_ubicacion">Acceder a ubicación</string>
     <string name="acceder_multiples_permisos">Múltiples permisos</string>
 
+    <string name="ejercicio">Ejercicio</string>
+
 </resources>

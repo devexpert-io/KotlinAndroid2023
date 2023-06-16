@@ -37,4 +37,11 @@
         android:layout_margin="16dp"
         android:text="@string/tiempo_de_ejecucion" />
 
+    <Button
+        android:id="@+id/btnEjercicio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/ejercicio" />
+
 </LinearLayout>

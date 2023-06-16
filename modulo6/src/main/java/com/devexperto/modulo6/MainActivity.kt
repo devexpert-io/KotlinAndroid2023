@@ -7,6 +7,7 @@ import com.devexperto.modulo6.activities.SinPermisosActivity
 import com.devexperto.modulo6.activities.TiempoDeEjecucionActivity
 import com.devexperto.modulo6.activities.TiempoDeInstalacionActivity
 import com.devexperto.modulo6.databinding.ActivityMainBinding
+import com.devexperto.modulo6.ejercicio.EjercicioActivity
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -24,6 +25,9 @@ class MainActivity : AppCompatActivity() {
         }
         binding.btnTiempoDeEjecucion.setOnClickListener{
             startActivity(Intent(this, TiempoDeEjecucionActivity::class.java))
+        }
+        binding.btnEjercicio.setOnClickListener {
+            startActivity(Intent(this, EjercicioActivity::class.java))
         }
     }
 }
