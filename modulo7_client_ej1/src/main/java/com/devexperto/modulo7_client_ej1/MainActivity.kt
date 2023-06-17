@@ -16,12 +16,14 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: ListClientAdapter
+    private lateinit var service: KtorClientService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        service = KtorClientService.create()
 
         setupUI()
     }
@@ -37,7 +39,7 @@ class MainActivity : AppCompatActivity() {
             //val result = response.body<MutableList<Cliente>>()
             //println(result)
 
-
+            adapter.setClientes(service.getClientes())
         }
     }
 
@@ -47,8 +49,8 @@ class MainActivity : AppCompatActivity() {
 
         adapter = ListClientAdapter(this@MainActivity) {
             val intent = Intent(this@MainActivity, AddClienteActivity::class.java)
-
-
+            intent.putExtra("cliente", it)
+            startActivity(intent)
         }
         binding.rvClientes.layoutManager = LinearLayoutManager(this@MainActivity)
         binding.rvClientes.adapter = adapter
@@ -60,10 +62,10 @@ class MainActivity : AppCompatActivity() {
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menuCarrito -> {
-
                     return@setOnMenuItemClickListener true
                 }
                 else -> {
+                    Toast.makeText(this, "Opción no implementada", Toast.LENGTH_SHORT).show()
                     return@setOnMenuItemClickListener true
                 }
             }
