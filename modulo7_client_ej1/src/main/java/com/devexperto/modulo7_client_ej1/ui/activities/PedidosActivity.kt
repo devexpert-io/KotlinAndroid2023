@@ -13,12 +13,14 @@ import kotlinx.coroutines.launch
 class PedidosActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPedidosBinding
     private lateinit var adapter: ListPedidosAdapter
+    private lateinit var service: KtorClientService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPedidosBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        service = KtorClientService.create()
 
         setupUI()
 
@@ -26,7 +28,14 @@ class PedidosActivity : AppCompatActivity() {
     }
 
     fun getClientes() {
-
+        lifecycleScope.launch {
+            binding.progressBar.visibility = View.VISIBLE
+            val response = service.getPedidos()
+            adapter = ListPedidosAdapter(response)
+            binding.rvPedidos.layoutManager = LinearLayoutManager(this@PedidosActivity)
+            binding.rvPedidos.adapter = adapter
+            binding.progressBar.visibility = View.GONE
+        }
     }
 
     fun setupUI() {

@@ -75,7 +75,7 @@ class AddClienteActivity : AppCompatActivity() {
 
     private fun eliminarCliente() {
         lifecycleScope.launch {
-            val respose = cliente?.let { service.deleteCliente(it.id.toInt()) }
+            val respose = cliente?.let { service.deleteCliente(it.id.toLong()) }
             Toast.makeText(this@AddClienteActivity, respose?.message ?: ":", Toast.LENGTH_SHORT).show()
             finish()
         }

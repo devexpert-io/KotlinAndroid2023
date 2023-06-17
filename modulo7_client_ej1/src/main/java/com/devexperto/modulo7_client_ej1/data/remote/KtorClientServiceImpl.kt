@@ -2,6 +2,7 @@ package com.devexperto.modulo7_client_ej1.data.remote
 
 import com.devexperto.modulo7_client_ej1.data.remote.dto.Cliente
 import com.devexperto.modulo7_client_ej1.data.remote.dto.Message
+import com.devexperto.modulo7_client_ej1.data.remote.dto.Pedido
 import io.ktor.client.*
 import io.ktor.client.call.body
 import io.ktor.client.plugins.ClientRequestException
@@ -46,7 +47,7 @@ class KtorClientServiceImpl(private val client: HttpClient): KtorClientService {
         }
     }
 
-    override suspend fun deleteCliente(id: Int): Message {
+    override suspend fun deleteCliente(id: Long): Message {
         return try {
             client.request("${HttpRoutes.ENDPOINT_CLIENTES}/$id"){
                 method = HttpMethod.Delete
@@ -56,5 +57,14 @@ class KtorClientServiceImpl(private val client: HttpClient): KtorClientService {
         }
     }
 
+    override suspend fun getPedidos(): MutableList<Pedido> {
+        return try {
+            client.request(HttpRoutes.ENDPOINT_PEDIDOS){
+                method = HttpMethod.Get
+            }.body()
+        } catch (e: ClientRequestException) {
+            throw e
+        }
+    }
 
 }
