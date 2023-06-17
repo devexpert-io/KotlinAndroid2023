@@ -1,0 +1,24 @@
+CREATE TABLE DbNote (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,
+    type TEXT NOT NULL
+);
+
+select:
+SELECT * FROM DbNote;
+
+selectbyId:
+SELECT * FROM DbNote WHERE id = ?;
+
+selectLastInsertedNote:
+SELECT * FROM DbNote WHERE id = last_insert_rowid();
+
+insert:
+INSERT INTO DbNote (title, description, type) VALUES (?, ?, ?);
+
+update:
+UPDATE DbNote SET title = ?, description = ?, type = ? WHERE id = ?;
+
+delete:
+DELETE FROM DbNote WHERE id = ?;
