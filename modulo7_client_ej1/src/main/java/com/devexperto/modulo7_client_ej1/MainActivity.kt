@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.devexperto.modulo7_client_ej1.data.remote.KtorClientService
 import com.devexperto.modulo7_client_ej1.databinding.ActivityMainBinding
 import com.devexperto.modulo7_client_ej1.ui.activities.AddClienteActivity
+import com.devexperto.modulo7_client_ej1.ui.activities.PedidosActivity
 import com.devexperto.modulo7_client_ej1.ui.adapters.ListClientAdapter
 import kotlinx.coroutines.launch
 
@@ -62,6 +63,7 @@ class MainActivity : AppCompatActivity() {
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menuCarrito -> {
+                    startActivity(Intent(this, PedidosActivity::class.java))
                     return@setOnMenuItemClickListener true
                 }
                 else -> {
