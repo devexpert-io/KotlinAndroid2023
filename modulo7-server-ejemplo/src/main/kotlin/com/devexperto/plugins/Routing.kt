@@ -7,5 +7,6 @@ import io.ktor.server.application.*
 fun Application.configureRouting() {
     routing {
         clienteRoute()
+        listaPedidosRoute()
     }
 }

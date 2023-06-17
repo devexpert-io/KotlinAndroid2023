@@ -2,6 +2,7 @@ package com.devexperto.routes
 
 import com.devexperto.models.Cliente
 import com.devexperto.models.clienteStorage
+import com.devexperto.models.pedidosStorage
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -52,6 +53,16 @@ fun Route.clienteRoute() {
             } else {
                 call.respond(HttpStatusCode.NotFound, Message("No encontrado"))
             }
+        }
+    }
+}
+
+fun Route.listaPedidosRoute() {
+    get("/pedidos") {
+        if (pedidosStorage.isNotEmpty()) {
+            call.respond(pedidosStorage)
+        } else {
+            call.respond(HttpStatusCode.BadRequest, Message("No se encontraron pedidos"))
         }
     }
 }
