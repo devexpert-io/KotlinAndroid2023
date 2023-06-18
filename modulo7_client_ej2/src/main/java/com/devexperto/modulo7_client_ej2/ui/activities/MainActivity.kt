@@ -13,12 +13,13 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: NotesAdapter
-
+    private lateinit var service: KtorClientService
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        service = KtorClientService.create()
 
         setupUI()
     }
@@ -28,8 +29,9 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         adapter = NotesAdapter() {
-
-
+            val intent = Intent(this@MainActivity, NoteActivity::class.java)
+            intent.putExtra("nota", it)
+            startActivity(intent)
         }
 
         binding.rvData.layoutManager = LinearLayoutManager(this@MainActivity)
@@ -47,8 +49,7 @@ class MainActivity : AppCompatActivity() {
 
     fun getNotes() {
         lifecycleScope.launch {
-
-
+            adapter.setNotas(service.getNotes())
         }
     }
 }
