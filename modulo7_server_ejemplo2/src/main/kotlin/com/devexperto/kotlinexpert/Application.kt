@@ -9,15 +9,17 @@ import io.ktor.server.netty.*
 import io.ktor.server.plugins.cors.routing.*
 
 fun main() {
-    embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
-        configureRouting()
-        configureSerialization()
-        install(CORS) {
-            allowMethod(HttpMethod.Delete)
-            allowMethod(HttpMethod.Put)
-            allowHeader(HttpHeaders.AccessControlAllowOrigin)
-            allowNonSimpleContentTypes = true
-            anyHost()
-        }
-    }.start(wait = true)
+    embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::myApplicationModule).start(wait = true)
+}
+
+fun Application.myApplicationModule() {
+    configureRouting()
+    configureSerialization()
+    install(CORS) {
+        allowMethod(HttpMethod.Delete)
+        allowMethod(HttpMethod.Put)
+        allowHeader(HttpHeaders.AccessControlAllowOrigin)
+        allowNonSimpleContentTypes = true
+        anyHost()
+    }
 }

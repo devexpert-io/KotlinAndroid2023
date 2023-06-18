@@ -18,7 +18,7 @@ object NotesRepository {
     }.noteQueries
 
     fun save(note: Note): Note {
-        notesDb.insert(note.title, note.description, note.type.name)
+        notesDb.insert(note.title, note.description, note.type)
         return notesDb.selectLastInsertedNote().executeAsOne().toNote()
     }
 
@@ -28,7 +28,7 @@ object NotesRepository {
 
     fun update(note: Note): Boolean {
         if (getById(note.id) == null) return false
-        notesDb.update(note.title, note.description, note.type.name, note.id)
+        notesDb.update(note.title, note.description, note.type, note.id)
         return true
     }
 
@@ -43,5 +43,5 @@ private fun DbNote.toNote(): Note = Note(
     id = id,
     title = title,
     description = description,
-    type = Note.Type.valueOf(type)
+    type = type
 )
